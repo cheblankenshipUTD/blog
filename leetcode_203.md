@@ -1,6 +1,6 @@
 
-  
-## Leetcode: Remove Linked List (203)
+
+## Leetcode: Remove Linked List Element (203)
 
 ### Question
 
@@ -32,7 +32,7 @@ Given the  `head`  of a linked list and an integer  `val`, remove all the nodes 
 
 #### Solution #1
 
-For this problem, I used `two pointer` approach. One pointer at 'current', and another pointer pointed at 'previous' location. The time complexity is `O(n)`. The challege was to handle the edge case such as all nodes having the target value. 
+For this problem, I used `two pointer` approach. One pointer at 'current', and another pointer pointed at 'previous' location. The time complexity is `O(n)`. The challege was to handle the edge case such as all nodes having the target value.
 
 Submitted Code
 
@@ -40,18 +40,18 @@ Submitted Code
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        
+
         ListNode* p = NULL;
         ListNode* q = NULL;
-        
+
         while(head != NULL && head->val == val)
         {
             head = head->next;
         }
-        
+
         p = head;
         q = head;
-        
+
         while(p != NULL)
         {
             if(p->val == val)
@@ -65,10 +65,9 @@ public:
                 p = p->next;
             }
         }
-        
+
         return head;
-        
+
     }
 };
 ```
-
