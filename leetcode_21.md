@@ -31,20 +31,10 @@ Return  _the head of the merged linked list_.
 -   `-100 <= Node.val <= 100`
 -   Both  `list1`  and  `list2`  are sorted in  **non-decreasing**  order.
 
-#### Solution #1
-I declared/initialized an empty linked-list that will hold the two merged linked list. In addition, I initialized head pointer variable for returning purpose. Since the two linked lists are sorted, the while loop can iterate through them using pointers until one of the linked list reaches a null. After one of the linked-list reaches NULL, I just have to insert the left over nodes into the merged linked list.
+#### Solution 1 (iterative approach & in-place manipulation)
+
 
 ``` cpp
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2)
@@ -80,5 +70,41 @@ public:
         return newH;
         
     }
+};
+```
+
+
+#### Solution 2 (recursive approach)
+
+
+``` cpp
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* p1, ListNode* p2)
+    {
+        
+        if(p1 == NULL && p2) return NULL;
+        return helper(p1, p2);
+    }
+    
+    ListNode* helper(ListNode* p1, ListNode* p2)
+    {
+        // base
+        if(p1 == NULL) return p2;
+        if(p2 == NULL) return p1;
+        
+        // recursive
+        ListNode* temp = NULL;
+        if (p1->val < p2->val)
+        {
+            temp = p1;
+            temp->next = helper(p1->next, p2);
+            return temp;
+        }
+        temp = p2;
+        temp->next = helper(p1, p2->next);
+        return temp;
+    }
+    
 };
 ```
