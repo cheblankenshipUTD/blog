@@ -1,6 +1,6 @@
 ## Coin Change Problem
 
-This is a note about approaching the coin change problem suing dynamic programming.
+This is a note about approaching the coin change problem using dynamic programming.
 
 - Approach using a 2D matrix table.
 - Approach using a 1D array.
