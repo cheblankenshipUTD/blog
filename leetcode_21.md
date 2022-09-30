@@ -83,7 +83,7 @@ public:
     ListNode* mergeTwoLists(ListNode* p1, ListNode* p2)
     {
         
-        if(p1 == NULL && p2) return NULL;
+        if(p1 == NULL && p2 == NULL) return NULL;
         return helper(p1, p2);
     }
     
