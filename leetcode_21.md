@@ -35,90 +35,49 @@ Return  _the head of the merged linked list_.
 I declared/initialized an empty linked-list that will hold the two merged linked list. In addition, I initialized head pointer variable for returning purpose. Since the two linked lists are sorted, the while loop can iterate through them using pointers until one of the linked list reaches a null. After one of the linked-list reaches NULL, I just have to insert the left over nodes into the merged linked list.
 
 ``` cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2)
+    {
         
-        // edge case
-        if(list1 == NULL && list2 == NULL)
-        {
-            return NULL;
-        }
+        if(!list1 && !list2) return NULL;
+        if(!list1) return list2;
+        if(!list2) return list1;
         
-        // 
-        if(list1 != NULL && list2 == NULL)
-        {
-            return list1;
-        }
+        ListNode* newH = (list1->val < list2->val) ? list1 : list2;
         
-        if(list1 == NULL && list2 != NULL)
-        {
-            return list2;
-        }
-        
-        // Declare empty merged linked list 
-        ListNode* ml = NULL;
-        ListNode* mh = NULL;
-        
-        // loop through two sorted ll
         while(list1 != NULL && list2 != NULL)
         {
-            // list1 node is smaller than list2 node
-            if(list1->val <= list2->val)
+            
+            if(list1->val < list2->val)
             {
-                // insert list1 node into merged ll
-                if(ml == NULL)
-                {
-                    ml = list1;
-                    mh = list1;
+                while(list1 && list1->next && list1->next->val < list2->val)
                     list1 = list1->next;
-                }
-                else
-                {
-                    ml->next = list1;
-                    ml = ml->next;
-                    list1 = list1->next;
-                }
+                ListNode* temp = list1->next;
+                list1->next = list2;
+                list1 = temp;
             }
             else
             {
-                // insert list1 node into merged ll
-                if(ml == NULL)
-                {
-                    ml = list2;
-                    mh = list2;
+                while(list2 && list2->next && list2->next->val <= list1->val)
                     list2 = list2->next;
-                }
-                else
-                {
-                    ml->next = list2;
-                    ml = ml->next;
-                    list2 = list2->next;
-                }
+                ListNode* temp = list2->next;
+                list2->next = list1;
+                list2 = temp;
             }
         }
         
-        // insert left over nodes
-        if(list1 != NULL || list2 == NULL)
-        {
-            while(list1 != NULL)
-            {
-                ml->next = list1;
-                ml = ml->next;
-                list1 = list1->next;
-            }
-        }
-        else
-        {
-            while(list2 != NULL)
-            {
-                ml->next = list2;
-                ml = ml->next;
-                list2 = list2->next;
-            }
-        }
-        
-        return mh;
+        return newH;
         
     }
 };
